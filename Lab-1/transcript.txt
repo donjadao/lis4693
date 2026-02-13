@@ -1,0 +1,237 @@
+today we're going to be talking about
+information retrieval and information
+retrieval is the technical academic way
+of referring to search engines like say
+Google and as you may have gathered
+Google made its money on the fact of its
+search engine and thus on the back of
+information retrieval so information
+retrieval is of vital economic
+importance and if you look at the major
+websites of the world ie what website is
+most visited in any particular country
+most of the world is dominated by search
+engines so Google throughout most the
+world
+Yandex and Russia Baidu in China Yahoo
+in Japan Facebook in the Middle East and
+North Africa with the exception of
+Facebook all of these are search engines
+and countries like China have realized
+that search engines are so important
+that they have created their own
+national champions and protected them
+and made sure that they are entrenched
+as say the primary website that people
+visit in China so why are search engines
+so important search engines connect
+people with information and information
+or knowledge is equated as power in many
+cases so search engines in the Internet
+age are the source of a lot of power
+we're talking about information
+retrieval very early in the course
+because it's relatively simple to
+understand although if you talk to any
+of the people at the companies like
+Yandex and Baidu that I mentioned it's
+not easy there are huge engineering
+challenges but to create a simple search
+engine is relatively simple from a
+conceptual perspective and we'll talk
+about that today but despite the
+inherent at least surface level
+simplicity of information retrieval it
+is vitally
+or into the world both in terms of
+knowledge dissemination of information
+and in terms of raw money and power but
+very specifically to those sorts of
+things that I'm interested in like
+question-answering information retrieval
+is a key component of other natural
+language processing tools and
+applications so one of the things that
+we'll see is that information retrieval
+is a very useful tool to have in your
+toolbox to find a bunch of information
+that may have the answers that you're
+looking for bring them to a smarter
+algorithm that can hopefully read it and
+to understand what's going on in these
+articles and to produce an intelligent
+answer specifically for this course
+you'll be using information retrieval to
+find some interesting documents and then
+for your course project try to extract
+the correct answer out of them so before
+we get into the nuts and bolts let's
+talk about some of the vocabulary that
+information retrieval researchers use
+we'll be talking about documents that's
+relatively straightforward these are the
+individual webpages or documents
+articles that you'll be trying to search
+over and the user comes in and they give
+a query and those query can have search
+terms and you try to match those search
+terms two terms in the documents and
+terms can often be thought of as
+synonymous with words this is certainly
+true in English it's less true in other
+languages we'll kind of gloss over that
+detail for the moment but we'll use
+search term instead of word just to keep
+that distinction a little bit clearer
+the general problem is that users will
+create queries that don't necessarily
+have the same terms as what's in the
+original documents and so the user might
+type in tragic romance Shakespeare might
+have written in star-crossed lovers how
+do you find that query in the correct
+document well I said that will be
+glossing over the distinction
+between term and word I I want to pause
+just a little bit before we do class
+over it to make sure that you realize
+that this is not a trivial problem in
+English it's relatively easy to figure
+out where one word ends and another
+begins you look for the space or the
+punctuation separating them in other
+languages like Chinese Japanese or
+Korean it's harder to figure out where
+one word ends and another begins
+they don't necessarily write with spaces
+so if you want to do this on a computer
+you need to figure out where one word
+hands and another one begins other
+languages like Hebrew or Arabic don't
+always write all the information that
+you need to figure out what a word is
+they leave out important information
+like say the vowels and if you're trying
+to do this on a computer you need to
+figure out what the vowels are other
+languages like Turkish or Finnish have
+very complicated rules for creating the
+words that you see based on its context
+and so if a noun is the subject of a
+particular kind of verb with a
+particular kind of object it will have
+different endings and the words will
+change and so the terms that you would
+want to use in a search engine would
+remove all of that superfluous
+information and would return only the
+key term that you should search for and
+so given all of these complications were
+relatively fortunate to be focusing on
+English which is in comparison a
+relatively simple and straightforward
+language to work with computationally
+but keep these complications in mind
+especially if you ever want to work with
+one of these other more interesting
+languages a key assumption that's
+relatively common in information
+retrieval is something called the bag of
+words assumption particularly when you
+are just trying to find relevant
+documents you don't necessarily care
+about the context that terms appearing
+and as a result we will just take a
+document find all the terms that appear
+in that document in count of how many
+times they appear
+this is horribly simplistic and a
+totally boneheaded thing to do but it
+often works and makes the engineering
+challenges of information retrieval a
+little bit more tractable early
+approaches for information retrieval use
+something called boolean retrieval so
+for example let's say that you're trying
+to find information on the Bank of China
+and you want to find documents that
+contain Bank and China but not river
+because Bank could refer to either a
+financial institution or the
+geographical feature next to a river
+after a user creates such a query you
+can then find all of the documents where
+that blue in expression results to true
+and then you have a set of documents the
+user has to then sift through all of
+those documents to find the one that
+they're interested in so often in the
+bad old days where this was a norm and
+I'm old enough to remember this you
+would start with a query they need to
+realize oh no I got all these irrelevant
+documents that that are talking about
+Dolly Parton okay so let me add that to
+my query to make sure that I remove
+those things and and then you finally
+whittle it down until you get like 20 or
+so documents that you as a human can
+actually sort through and then you find
+the things that you're actually
+interested in so this took forever it
+was annoying and we suffered through it
+but today we're living in a much better
+world so let's drill down a little bit
+more into the strengths and weaknesses
+of boolean based retrieval so on the
+plus side it's really precise there's no
+fuzziness to it either a page matches
+the query or it doesn't and if you know
+the document that you're looking for you
+can find it it may take a while but you
+can find it and this was really useful
+for being able to find pages that you've
+seen before or you had a good idea of
+what's in them the downside is that it
+required you to learn some really
+complex syntax to write your query keys
+and for people who were interested in
+computers at
+understood boolean logic this was okay
+you could do it and it was maybe even a
+little bit fun but it wasn't very
+accessible to the general public
+and on the plus side these approaches
+were really fast you could implement
+them very quickly and you could get
+results very quickly the downside was
+that often you were inundated with
+responses and if you had 20,000 relevant
+documents you had to sort through this
+huge set and that was just impossible
+the other extreme is that you'd get zero
+results nothing would be relevant and
+you didn't get a hint like if you change
+this term you might get some more
+documents and so this is a case where
+partial matches would be really helpful
+that if there was some document that
+just barely failed the query that that
+would be included and you could look at
+that and maybe that would give you ideas
+of how to improve your query so that you
+get the right number of documents but I
+think the most damning short-haul of
+these methods was they didn't provide a
+ranking of their results and ideally
+what you would want is that even if you
+got 20,000 results you could look at the
+first result and that would be the best
+shot that the computer had at answering
+your question but boolean results don't
+let you do that and what we'll talk
+about next is how we can create ranked
+results by creating scoring functions
+that take a query and take a document
+and then find the most relevant
+documents given that query
